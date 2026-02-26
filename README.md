@@ -1,31 +1,49 @@
 # 📚 Library Management System (C++)
 
-A console-based Library Management System built using **C++**, applying **Object-Oriented Programming (OOP)** concepts and **file handling** for persistent data storage.
+A console-based Library Management System built using **C++**, implementing core **Object-Oriented Programming (OOP)** principles and **file handling** to ensure persistent data storage.
+
+This project demonstrates structured program design, data consistency management, and practical usage of STL containers.
 
 ---
 
 ## 🚀 Features
 
-- ➕ Add new books
-- 🔍 Search books by ID
-- 🗑 Delete books
-- 📖 View all books
-- 💾 Persistent storage using file handling
+### 📌 Book Management
+- ➕ Add new books (with duplicate ID prevention)
+- 🗑 Delete books by ID
+- 📖 View all stored books
+
+### 🔍 Advanced Search Functionality
+Search books using multiple criteria:
+- Search by **Book ID**
+- Search by **Book Name**
+- Search by **Author Name**
+
+### 💾 Persistent Storage
+- Uses `ifstream` and `ofstream`
+- Automatically loads data at startup
+- Rewrites file safely after deletion
+- Maintains synchronization between memory (`vector`) and file
 
 ---
 
 ## 🛠 Technologies & Concepts Used
 
-- C++
-- Classes & Objects (OOP)
-- File Handling (`ifstream`, `ofstream`)
-- `vector` (Dynamic storage)
-- Modular Function Design
+- **C++**
+- **Object-Oriented Programming**
+  - Encapsulation
+  - Classes & Objects
+- **STL**
+  - `vector`
+- **File Handling**
+  - `ifstream`
+  - `ofstream`
+- Menu-driven system design
+- Data validation logic
 
 ---
 
 ## 📂 Project Structure
-
 ```
 library-management-system-cpp/
 │
@@ -36,39 +54,63 @@ library-management-system-cpp/
 
 ---
 
-## ▶ How to Run
+## 📄 Data File Structure
+Structured plain-text format:
 
-### 1️⃣ Compile
-
-```bash
-g++ library_management_system.cpp -o library
+```
+BookID
+BookName
+AuthorName
 ```
 
-### 2️⃣ Run
+### Example:
 
-```bash
-./library
 ```
+101
+Clean Code
+Robert C. Martin
+102
+The Pragmatic Programmer
+Andrew Hunt
+```
+
+This structure ensures:
+- Easy parsing
+- Clean data organization
+- Reduced risk of file corruption
 
 ---
 
-## 📌 Sample Data Format (data.txt)
+## ▶ How to Run
 
-```
-Book Id : 1
-Book Name : Clean Code
-Author name : Robert C. Martin
-```
+### 1️⃣ Compile
+g++ library_management_system.cpp -o library
+
+### 2️⃣ Run
+./library
 
 ---
 
 ## 🔮 Future Improvements
 
-- Duplicate ID validation
-- Input validation
-- Improved file structure (structured data format)
-- Update/edit book feature
-- Better error handling
+- Case-insensitive search
+- Sorting books (by ID or Name)
+- Update/Edit book feature
+- Binary file storage
+- Header & source file separation
+- Database integration
+- User authentication system
+
+---
+
+## 📈 Learning Outcomes
+
+This project demonstrates:
+
+- Practical implementation of OOP concepts
+- File-based data persistence
+- Managing consistency between memory and storage
+- Writing modular and maintainable C++ code
 
 ---
 
@@ -76,4 +118,4 @@ Author name : Robert C. Martin
 
 Om Yadav  
 B.Tech CSE Student  
-Passionate about C++ and System Design
+Focused on C++, DSA, and system-level fundamentals
