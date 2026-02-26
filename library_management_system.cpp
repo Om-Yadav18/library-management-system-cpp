@@ -43,18 +43,69 @@ void show_all_book( vector<Book> &book){
         book[i].show_display();
     }
 }
-void search_book(int id , vector<Book> &book){
+void search_book(vector<Book> &book){
     int n = book.size();
+    cout<<" Search Method : \n";
+    cout<<"1. Using ID : \n2. Using Book Name : \n3. Using Author Name :\n";
+    int Choice;
+    cout<<"Enter your choice : ";
+    cin>>Choice;
     bool flag = false;
-    for(int i=0;i<n;i++){
-        if(id == book[i].get_book_id()){
-            book[i].show_display();
-            flag = true;
+    switch(Choice){
+        case 1:{
+            int id;
+            cout<<"Enter book ID : ";
+            cin>>id;
+            cin.ignore();
+            for(int i=0;i<n;i++){
+                if(id == book[i].get_book_id()){
+                    book[i].show_display();
+                    flag = true;
+                    break;
+                }
+            }
+            if( flag == false){
+                cout<<"Wrong id or invaild id.\n";
+            }
             break;
         }
-    }
-    if( flag == false){
-        cout<<"Wrong id or invaild id.";
+        case 2:{
+            cout<<"Enter book Name : ";
+            string name;
+            getline(cin , name);
+            flag = false;
+            for( int i=0;i<n;i++){
+                if( name == book[i].get_book_name()){
+                    book[i].show_display();
+                    flag = true;
+                    break;
+                }
+            }
+            if( flag == false){
+                cout<<"please check again the book name .\n";
+            }
+            break;
+        }
+        case 3:{
+            cout<<"Enter Author name : ";
+            string author_name;
+            getline( cin , author_name);
+            flag = false;
+            for( int i=0;i<n;i++){
+                if( author_name == book[i].get_author_name()){
+                    book[i].show_display();
+                    flag = true;
+                    break;
+                }
+            }
+            if( flag == false){
+                cout<<"please check again the author name .\n";
+            }
+            break;
+        }
+        default:
+            cout<<"you choose the wronge option .\n";
+            break;
     }
 }
 void rewrite_file(vector<Book> &book){
@@ -93,8 +144,23 @@ void add_book(vector<Book> &book){
         int id;
         string book_name;
         string author_name;
-        cout<<"Enter book ID :";
-        cin>>id;
+        bool terminate = false;
+        while( terminate == false){
+            cout<<"Enter book ID : ";
+            cin>>id;
+            bool flag = false;
+            for( int i=0;i<book.size() ; i++){
+                if( id == book[i].get_book_id()){
+                    flag = true;
+                    break;
+                }
+            }
+            if( flag == true){
+                cout<<"This book id is already exit . Try again .\n";
+            }else{
+                terminate = true;
+            }
+        }
         cin.ignore();
         cout<<"Enter book Name : ";
         getline( cin , book_name);
@@ -103,9 +169,9 @@ void add_book(vector<Book> &book){
         Book temp;
         temp.set_detail(id , book_name , author_name);
         book.push_back(temp);
-        file<<"Book Id : "<<temp.get_book_id()<<endl;
-        file<<"Book Name : "<<temp.get_book_name()<<endl;
-        file<<"Author name : "<<temp.get_author_name()<<endl;
+        file<<temp.get_book_id()<<endl;
+        file<<temp.get_book_name()<<endl;
+        file<<temp.get_author_name()<<endl;
     }
 }
 void data_load_to_vector(vector<Book> &book){
@@ -113,16 +179,10 @@ void data_load_to_vector(vector<Book> &book){
     string line;
     string book_name , author_name;
     int book_id;
-    while (getline(readfile, line)) {
-        if (line.find("Book Id : ") != string::npos){
-            book_id = stoi(line.substr(10));
-        }
-        getline(readfile, line);
-        book_name = line.substr(13);
-
-        getline(readfile, line);
-        author_name = line.substr(15);
-
+    while(readfile >> book_id){
+        readfile.ignore();
+        getline(readfile, book_name);
+        getline(readfile, author_name);
         Book temp;
         temp.set_detail(book_id, book_name, author_name);
         book.push_back(temp);
@@ -143,10 +203,7 @@ int main(){
                 add_book(book);
                 break;
             case 2 :
-                int id;
-                cout<<"Enter book id : ";
-                cin>>id;
-                search_book(id , book);
+                search_book(book);
                 break;
             case 3 :
                 show_all_book(book);
